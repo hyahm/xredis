@@ -34,7 +34,7 @@ func main() {
 		panic(err)
 	}
 
-	if err := client.Str().Set("aa", "bbb", time.Second*10); err != nil {
+	if _, err := client.Str().Set("aa", "bbb", time.Second*10); err != nil {
 		panic(err)
 	}
 	fmt.Println("设置成功")

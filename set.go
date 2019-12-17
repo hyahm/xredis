@@ -15,7 +15,7 @@ func (gr *typeSet) SAdd(key string, members ...interface{}) (int64, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -27,7 +27,7 @@ func (gr *typeSet) SCard(key string) (int64, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -39,7 +39,7 @@ func (gr *typeSet) SDiff(key ...string) ([]string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -50,7 +50,7 @@ func (gr *typeSet) SDiffStore(destination string, keys ...string) (int64, error)
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -62,7 +62,7 @@ func (gr *typeSet) SInter(keys ...string) ([]string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -74,7 +74,7 @@ func (gr *typeSet) SInterStore(destination string, keys ...string) (int64, error
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -86,7 +86,7 @@ func (gr *typeSet) SIsMember(key string, member interface{}) (bool, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  false, err
 	}
 
@@ -99,7 +99,7 @@ func (gr *typeSet) SMembers(key string) ([]string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -112,7 +112,7 @@ func (gr *typeSet) SMove(source, destination string, member interface{}) (bool, 
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  false, err
 	}
 
@@ -125,7 +125,7 @@ func (gr *typeSet) SPop(key string) (string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  "", err
 	}
 
@@ -138,7 +138,7 @@ func (gr *typeSet) SRandMember(key string) (string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  "", err
 	}
 
@@ -151,7 +151,7 @@ func (gr *typeSet) SRandMemberN(key string, count int64) ([]string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -164,7 +164,7 @@ func (gr *typeSet) SRem(key string, members ...interface{}) (int64, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -176,7 +176,7 @@ func (gr *typeSet) SUnion(keys ...string) ([]string, error) {
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -188,7 +188,7 @@ func (gr *typeSet) SUnionStore(destination string, keys ...string) (int64, error
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -201,7 +201,7 @@ func (gr *typeSet) SScan(key string, cursor uint64, match string, count int64) (
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, 0, err
 	}
 

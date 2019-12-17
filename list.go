@@ -17,7 +17,7 @@ func (gr *typeList) BLPop(timeout time.Duration, keys ...string) ([]string, erro
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -30,7 +30,7 @@ func (gr *typeList) BRPop(timeout time.Duration, keys ...string) ([]string, erro
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -42,7 +42,7 @@ func (gr *typeList) BRPopLPush(source, destination string, timeout time.Duration
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  "", err
 	}
 
@@ -56,7 +56,7 @@ func (gr *typeList) LIndex(key string, index int64) (string, error) {
 		panic("please conn first")
 	}
 	// 通过索引获取列表中的元素
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  "", err
 	}
 
@@ -68,7 +68,7 @@ func (gr *typeList) LInsert(key, op string, pivot, value interface{}) (int64, er
 		panic("please conn first")
 	}
 	// 在列表的元素前或者后插入元素
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -80,7 +80,7 @@ func (gr *typeList) LLen(key string) (int64, error) {
 		panic("please conn first")
 	}
 	// 获取列表长度
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -92,7 +92,7 @@ func (gr *typeList) LPop(key string) (string, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  "", err
 	}
 
@@ -104,7 +104,7 @@ func (gr *typeList) LPush(key string, values ...interface{}) (int64, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -116,7 +116,7 @@ func (gr *typeList) LPushX(key string, values ...interface{}) (int64, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -128,7 +128,7 @@ func (gr *typeList) LRange(key string, start, stop int64) ([]string, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  nil, err
 	}
 
@@ -140,7 +140,7 @@ func (gr *typeList) LRem(key string, count int64, value interface{}) (int64, err
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  0, err
 	}
 
@@ -152,7 +152,7 @@ func (gr *typeList) LSet(key string, index int64, value interface{}) (string, er
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -164,7 +164,7 @@ func (gr *typeList) LTrim(key string, start, stop int64) (string, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -176,7 +176,7 @@ func (gr *typeList) RPop(key string) (string, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -189,7 +189,7 @@ func (gr *typeList) RPopLPush(source, destination string) (string, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -201,7 +201,7 @@ func (gr *typeList) RPush(key string, values ...interface{}) (int64, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return 0, err
 	}
 
@@ -213,7 +213,7 @@ func (gr *typeList) RPushX(key string, values ...interface{}) (int64, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if err := gr.ping(); err != nil {
+	if err := gr.Ping(); err != nil {
 		return 0, err
 	}
 

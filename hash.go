@@ -13,7 +13,7 @@ func (gr *typeHash) HDel(key string, fields ...string) error {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return  err
 	}
 
@@ -23,7 +23,7 @@ func (gr *typeHash) HExists(key, field string) (bool, error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return false, err
 	}
 
@@ -34,7 +34,7 @@ func (gr *typeHash) HGet(key, field string) (string,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -45,7 +45,7 @@ func (gr *typeHash) HGetAll(key string) (map[string]string,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return nil, err
 	}
 
@@ -55,7 +55,7 @@ func (gr *typeHash) HIncrBy(key, field string, incr int64) (int64,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return 0, err
 	}
 
@@ -65,7 +65,7 @@ func (gr *typeHash) HIncrByFloat(key, field string, incr float64) (float64,error
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return 0, err
 	}
 
@@ -75,7 +75,7 @@ func (gr *typeHash) HKeys(key string) ([]string,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return nil, err
 	}
 
@@ -85,7 +85,7 @@ func (gr *typeHash) HLen(key string) (int64,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return 0, err
 	}
 
@@ -95,7 +95,7 @@ func (gr *typeHash) HMGet(key string,  fields ...string) ([]interface{},error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return nil, err
 	}
 
@@ -106,7 +106,7 @@ func (gr *typeHash) HMSet(key string, fields map[string]interface{}) (string,err
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return "", err
 	}
 
@@ -116,7 +116,7 @@ func (gr *typeHash) HSet(key, field string, value interface{}) (bool,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return false, err
 	}
 
@@ -127,7 +127,7 @@ func (gr *typeHash) HSetNX(key, field string, value interface{}) (bool,error) {
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return false, err
 	}
 
@@ -135,7 +135,7 @@ func (gr *typeHash) HSetNX(key, field string, value interface{}) (bool,error) {
 }
 
 func (gr *typeHash) HVals(key string) ([]string,error) {
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return nil, err
 	}
 
@@ -146,7 +146,7 @@ func (gr *typeHash) HScan(key string, cursor uint64, match string, count int64) 
 	if gr == nil {
 		panic("please conn first")
 	}
-	if  err := gr.ping(); err != nil {
+	if  err := gr.Ping(); err != nil {
 		return nil,0,  err
 	}
 

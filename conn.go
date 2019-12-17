@@ -26,7 +26,7 @@ func Conn(opt *redis.Options) (*GoRedis, error) {
 	return gr, nil
 }
 
-func (gr *GoRedis) ping() error {
+func (gr *GoRedis) Ping() error {
 	if err := gr.client.Ping().Err(); err != nil {
 		// 重连一次
 		gr.client = redis.NewClient(gr.conf)
@@ -36,4 +36,28 @@ func (gr *GoRedis) ping() error {
 	}
 	return  nil
 }
+
+func (gr *GoRedis) Echo(message interface{}) (string, error) {
+	if gr == nil {
+		panic("please conn first")
+	}
+	if  err := gr.Ping(); err != nil {
+		return "",  err
+	}
+
+	return gr.client.Echo(message).Result()
+}
+
+func (gr *GoRedis) Quit( ) (string, error) {
+	if gr == nil {
+		panic("please conn first")
+	}
+	if  err := gr.Ping(); err != nil {
+		return "",  err
+	}
+
+	return gr.client.Quit().Result()
+}
+
+
 
