@@ -7,6 +7,14 @@ import (
 	"time"
 )
 
+type user struct {
+	Name string
+	Age int
+	Id int64
+	Role int
+	Token string
+}
+
 func main() {
 	conf := &redis.Options{
 		Network:            "",
@@ -33,36 +41,32 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	if _, err := client.Str().Set("aa", "bbb", time.Second*10); err != nil {
+	s := client.NewStr()
+	if _, err := s.Set("aa", "bbb", time.Second*10); err != nil {
 		panic(err)
 	}
 	fmt.Println("设置成功")
-	s, err := client.Str().Get("aa")
+	value, err := s.Get("aa")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(s)
+	fmt.Println(value)
 	//
-	olds, err := client.Str().GetSet("aa", "abcdefghijklmnopqrstuvwxyz")
+	// 添加映射的缓存表
+	tt  := client.NewTable()
+	err = tt.InsertTemplate("user", user{})
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(olds)
-
+	err = tt.SetPrefix("user", "www")
+	if err != nil {
+		panic(err)
+	}
 	// range
-	ranges, err := client.Str().GetRange("aa", 1, 35)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(ranges)
+	fmt.Printf("%v", tt.GetKeys("user"))
 
-	bs, err := client.Str().GetBit("aa", 1)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(bs)
 
 
 
 }
+

@@ -58,6 +58,3 @@ func (gr *GoRedis) Quit( ) (string, error) {
 
 	return gr.client.Quit().Result()
 }
-
-
-
