@@ -10,8 +10,8 @@ import (
 type typeTable struct {
 	tt *GoRedis
 	prefix string // 前缀
-	key *typeSet
-	kt *typeString
+	key *TypeSet
+	kt *TypeString
 	mu sync.RWMutex
 }
 
