@@ -46,6 +46,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("设置成功")
+
 	value, err := s.Get("aa")
 	if err != nil {
 		panic(err)
@@ -58,6 +59,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	err = tt.SetPrefix("user", "www")
 	if err != nil {
 		panic(err)

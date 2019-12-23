@@ -3,7 +3,8 @@ package xredis
 import "time"
 
 type typeList struct {
-	tl *GoRedis
+	*GoRedis
+
 }
 
 
@@ -11,42 +12,51 @@ func (gr *GoRedis) NewList() *typeList {
 	return &typeList{gr	}
 }
 
+func (tl *typeList) Del(keys ...string) (int64, error) {
+	if tl == nil {
+		panic("please conn first")
+	}
+	if  err := tl.Ping(); err != nil {
+		return  0, err
+	}
+	return tl.client.Del(keys...).Result()
+}
 
 func (tl *typeList) BLPop(timeout time.Duration, keys ...string) ([]string, error) {
-	if tl.tl == nil {
+	if tl == nil {
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := tl.tl.Ping(); err != nil {
+	if  err := tl.Ping(); err != nil {
 		return  nil, err
 	}
 
-	return tl.tl.client.BLPop(timeout, keys...).Result()
+	return tl.client.BLPop(timeout, keys...).Result()
 }
 
 
 func (tl *typeList) BRPop(timeout time.Duration, keys ...string) ([]string, error) {
-	if tl.tl == nil {
+	if tl == nil {
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := tl.tl.Ping(); err != nil {
+	if  err := tl.Ping(); err != nil {
 		return  nil, err
 	}
 
-	return tl.tl.client.BRPop(timeout, keys...).Result()
+	return tl.client.BRPop(timeout, keys...).Result()
 }
 
 func (tl *typeList) BRPopLPush(source, destination string, timeout time.Duration) (string, error) {
 	// 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if tl.tl == nil {
+	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.tl.Ping(); err != nil {
+	if  err := tl.Ping(); err != nil {
 		return  "", err
 	}
 
-	return tl.tl.client.BRPopLPush(source, destination,timeout).Result()
+	return tl.client.BRPopLPush(source, destination,timeout).Result()
 }
 
 
