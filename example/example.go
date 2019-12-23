@@ -54,7 +54,6 @@ func main() {
 	fmt.Println(value)
 	//
 	// 添加映射的缓存表
-<<<<<<< HEAD
 	tt  := client.NewTable()
 	err = tt.InsertTemplate("user", user{})
 	if err != nil {
@@ -67,7 +66,6 @@ func main() {
 	}
 	// range
 	fmt.Printf("%v", tt.GetKeys("user"))
-=======
 	//tt  := client.NewTable()
 	//err = tt.InsertTemplate("user", user{})
 	//if err != nil {
@@ -79,9 +77,6 @@ func main() {
 	//}
 	//// range
 	//fmt.Printf("%v", tt.GetKeys("user"))
->>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
-
-
 
 
 }
