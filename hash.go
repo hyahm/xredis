@@ -1,15 +1,15 @@
 package xredis
 
-type typeHash struct {
+type TypeHash struct {
 	th *GoRedis
 }
 
 
-func (gr *GoRedis) NewHash() *typeHash {
-	return &typeHash{gr	}
+func (gr *GoRedis) NewHash() *TypeHash {
+	return &TypeHash{gr	}
 }
 
-func (th *typeHash) HDel(key string, fields ...string) error {
+func (th *TypeHash) HDel(key string, fields ...string) error {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -19,7 +19,7 @@ func (th *typeHash) HDel(key string, fields ...string) error {
 
 	return th.th.client.HDel(key, fields...).Err()
 }
-func (th *typeHash) HExists(key, field string) (bool, error) {
+func (th *TypeHash) HExists(key, field string) (bool, error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -30,7 +30,7 @@ func (th *typeHash) HExists(key, field string) (bool, error) {
 	return th.th.client.HExists(key, field).Result()
 }
 
-func (th *typeHash) HGet(key, field string) (string,error) {
+func (th *TypeHash) HGet(key, field string) (string,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -41,7 +41,7 @@ func (th *typeHash) HGet(key, field string) (string,error) {
 	return th.th.client.HGet(key, field).Result()
 }
 
-func (th *typeHash) HGetAll(key string) (map[string]string,error) {
+func (th *TypeHash) HGetAll(key string) (map[string]string,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -51,7 +51,7 @@ func (th *typeHash) HGetAll(key string) (map[string]string,error) {
 
 	return th.th.client.HGetAll(key).Result()
 }
-func (th *typeHash) HIncrBy(key, field string, incr int64) (int64,error) {
+func (th *TypeHash) HIncrBy(key, field string, incr int64) (int64,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -61,7 +61,7 @@ func (th *typeHash) HIncrBy(key, field string, incr int64) (int64,error) {
 
 	return th.th.client.HIncrBy(key, field, incr).Result()
 }
-func (th *typeHash) HIncrByFloat(key, field string, incr float64) (float64,error) {
+func (th *TypeHash) HIncrByFloat(key, field string, incr float64) (float64,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -71,7 +71,7 @@ func (th *typeHash) HIncrByFloat(key, field string, incr float64) (float64,error
 
 	return th.th.client.HIncrByFloat(key, field, incr).Result()
 }
-func (th *typeHash) HKeys(key string) ([]string,error) {
+func (th *TypeHash) HKeys(key string) ([]string,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -81,7 +81,7 @@ func (th *typeHash) HKeys(key string) ([]string,error) {
 
 	return th.th.client.HKeys(key).Result()
 }
-func (th *typeHash) HLen(key string) (int64,error) {
+func (th *TypeHash) HLen(key string) (int64,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -91,7 +91,7 @@ func (th *typeHash) HLen(key string) (int64,error) {
 
 	return th.th.client.HLen(key).Result()
 }
-func (th *typeHash) HMGet(key string,  fields ...string) ([]interface{},error) {
+func (th *TypeHash) HMGet(key string,  fields ...string) ([]interface{},error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -102,7 +102,7 @@ func (th *typeHash) HMGet(key string,  fields ...string) ([]interface{},error) {
 	return th.th.client.HMGet(key, fields...).Result()
 }
 
-func (th *typeHash) HMSet(key string, fields map[string]interface{}) (string,error) {
+func (th *TypeHash) HMSet(key string, fields map[string]interface{}) (string,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -112,7 +112,7 @@ func (th *typeHash) HMSet(key string, fields map[string]interface{}) (string,err
 
 	return th.th.client.HMSet(key, fields).Result()
 }
-func (th *typeHash) HSet(key, field string, value interface{}) (bool,error) {
+func (th *TypeHash) HSet(key, field string, value interface{}) (bool,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -123,7 +123,7 @@ func (th *typeHash) HSet(key, field string, value interface{}) (bool,error) {
 	return th.th.client.HSet(key, field, value).Result()
 }
 
-func (th *typeHash) HSetNX(key, field string, value interface{}) (bool,error) {
+func (th *TypeHash) HSetNX(key, field string, value interface{}) (bool,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -134,7 +134,7 @@ func (th *typeHash) HSetNX(key, field string, value interface{}) (bool,error) {
 	return th.th.client.HSetNX(key, field, value).Result()
 }
 
-func (th *typeHash) HVals(key string) ([]string,error) {
+func (th *TypeHash) HVals(key string) ([]string,error) {
 	if th.th == nil {
 		panic("please conn first")
 	}
@@ -145,7 +145,7 @@ func (th *typeHash) HVals(key string) ([]string,error) {
 	return th.th.client.HVals(key).Result()
 }
 
-func (th *typeHash) HScan(key string, cursor uint64, match string, count int64) ([]string, uint64, error) {
+func (th *TypeHash) HScan(key string, cursor uint64, match string, count int64) ([]string, uint64, error) {
 	if th.th == nil {
 		panic("please conn first")
 	}

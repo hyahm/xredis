@@ -1,17 +1,27 @@
 package xredis
 
+<<<<<<< HEAD
 type typeSet struct {
 	*GoRedis
+=======
+type TypeSet struct {
+	ts *GoRedis
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 }
 
 
-func (gr *GoRedis) NewSet() *typeSet {
-	return &typeSet{gr	}
+func (gr *GoRedis) NewSet() *TypeSet {
+	return &TypeSet{gr	}
 }
 
 
+<<<<<<< HEAD
 func (ts *typeSet) SAdd(key string, members ...interface{}) (int64, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SAdd(key string, members ...interface{}) (int64, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -22,8 +32,13 @@ func (ts *typeSet) SAdd(key string, members ...interface{}) (int64, error) {
 	return ts.client.SAdd(key, members...).Result()
 }
 
+<<<<<<< HEAD
 func (ts *typeSet) SCard(key string) (int64, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SCard(key string) (int64, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -34,8 +49,13 @@ func (ts *typeSet) SCard(key string) (int64, error) {
 	return ts.client.SCard(key).Result()
 }
 
+<<<<<<< HEAD
 func (ts *typeSet) SDiff(key ...string) ([]string, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SDiff(key ...string) ([]string, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -45,8 +65,13 @@ func (ts *typeSet) SDiff(key ...string) ([]string, error) {
 
 	return ts.client.SDiff(key...).Result()
 }
+<<<<<<< HEAD
 func (ts *typeSet) SDiffStore(destination string, keys ...string) (int64, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SDiffStore(destination string, keys ...string) (int64, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -57,8 +82,13 @@ func (ts *typeSet) SDiffStore(destination string, keys ...string) (int64, error)
 	return ts.client.SDiffStore(destination, keys...).Result()
 }
 
+<<<<<<< HEAD
 func (ts *typeSet) SInter(keys ...string) ([]string, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SInter(keys ...string) ([]string, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -69,8 +99,13 @@ func (ts *typeSet) SInter(keys ...string) ([]string, error) {
 	return ts.client.SInter(keys...).Result()
 }
 
+<<<<<<< HEAD
 func (ts *typeSet) SInterStore(destination string, keys ...string) (int64, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SInterStore(destination string, keys ...string) (int64, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -81,8 +116,13 @@ func (ts *typeSet) SInterStore(destination string, keys ...string) (int64, error
 	return ts.client.SInterStore(destination, keys...).Result()
 }
 
+<<<<<<< HEAD
 func (ts *typeSet) SIsMember(key string, member interface{}) (bool, error) {
 	if ts == nil {
+=======
+func (ts *TypeSet) SIsMember(key string, member interface{}) (bool, error) {
+	if ts.ts == nil {
+>>>>>>> e4d6c3adf0ae90e4a60b4c67b2c3d1c706f2965d
 		panic("please conn first")
 	}
 	// 向集合添加一个或多个成员, 返回添加的成员数
@@ -94,7 +134,7 @@ func (ts *typeSet) SIsMember(key string, member interface{}) (bool, error) {
 }
 
 
-func (ts *typeSet) SMembers(key string) ([]string, error) {
+func (ts *TypeSet) SMembers(key string) ([]string, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -107,7 +147,7 @@ func (ts *typeSet) SMembers(key string) ([]string, error) {
 }
 
 
-func (ts *typeSet) SMove(source, destination string, member interface{}) (bool, error) {
+func (ts *TypeSet) SMove(source, destination string, member interface{}) (bool, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -120,7 +160,7 @@ func (ts *typeSet) SMove(source, destination string, member interface{}) (bool, 
 }
 
 
-func (ts *typeSet) SPop(key string) (string, error) {
+func (ts *TypeSet) SPop(key string) (string, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -133,7 +173,7 @@ func (ts *typeSet) SPop(key string) (string, error) {
 }
 
 
-func (ts *typeSet) SRandMember(key string) (string, error) {
+func (ts *TypeSet) SRandMember(key string) (string, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -146,7 +186,7 @@ func (ts *typeSet) SRandMember(key string) (string, error) {
 }
 
 
-func (ts *typeSet) SRandMemberN(key string, count int64) ([]string, error) {
+func (ts *TypeSet) SRandMemberN(key string, count int64) ([]string, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -159,7 +199,7 @@ func (ts *typeSet) SRandMemberN(key string, count int64) ([]string, error) {
 }
 
 
-func (ts *typeSet) SRem(key string, members ...interface{}) (int64, error) {
+func (ts *TypeSet) SRem(key string, members ...interface{}) (int64, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -171,7 +211,7 @@ func (ts *typeSet) SRem(key string, members ...interface{}) (int64, error) {
 	return ts.ts.client.SRem(key, members...).Result()
 }
 
-func (ts *typeSet) SUnion(keys ...string) ([]string, error) {
+func (ts *TypeSet) SUnion(keys ...string) ([]string, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -183,7 +223,7 @@ func (ts *typeSet) SUnion(keys ...string) ([]string, error) {
 	return ts.ts.client.SUnion(keys...).Result()
 }
 
-func (ts *typeSet) SUnionStore(destination string, keys ...string) (int64, error) {
+func (ts *TypeSet) SUnionStore(destination string, keys ...string) (int64, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
@@ -196,7 +236,7 @@ func (ts *typeSet) SUnionStore(destination string, keys ...string) (int64, error
 }
 
 
-func (ts *typeSet) SScan(key string, cursor uint64, match string, count int64) ([]string, uint64, error) {
+func (ts *TypeSet) SScan(key string, cursor uint64, match string, count int64) ([]string, uint64, error) {
 	if ts.ts == nil {
 		panic("please conn first")
 	}
