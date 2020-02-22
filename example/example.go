@@ -2,26 +2,27 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-redis/redis/v7"
-	"github.com/hyahm/xredis"
 	"time"
+
+	"github.com/go-redis/redis"
+	"github.com/hyahm/xredis"
 )
 
 type user struct {
-	Name string
-	Age int
-	Id int64
-	Role int
+	Name  string
+	Age   int
+	Id    int64
+	Role  int
 	Token string
 }
 
 func main() {
 	conf := &redis.Options{
 		Network:            "",
-		Addr:               "127.0.0.1:6379",
+		Addr:               "23.224.69.130:6379",
 		Dialer:             nil,
 		OnConnect:          nil,
-		Password:           "",
+		Password:           "dahaiten",
 		DB:                 0,
 		MaxRetries:         0,
 		MinRetryBackoff:    0,
@@ -29,7 +30,7 @@ func main() {
 		DialTimeout:        0,
 		ReadTimeout:        0,
 		WriteTimeout:       0,
-		PoolSize:           0,
+		PoolSize:           10,
 		MinIdleConns:       0,
 		MaxConnAge:         0,
 		PoolTimeout:        0,
@@ -37,7 +38,7 @@ func main() {
 		IdleCheckFrequency: 0,
 		TLSConfig:          nil,
 	}
-	client, err  := xredis.Conn(conf)
+	client, err := xredis.Conn(conf)
 	if err != nil {
 		panic(err)
 	}
@@ -52,32 +53,5 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(value)
-	//
-	// 添加映射的缓存表
-	tt  := client.NewTable()
-	err = tt.InsertTemplate("user", user{})
-	if err != nil {
-		panic(err)
-	}
-
-	err = tt.SetPrefix("user", "www")
-	if err != nil {
-		panic(err)
-	}
-	// range
-	fmt.Printf("%v", tt.GetKeys("user"))
-	//tt  := client.NewTable()
-	//err = tt.InsertTemplate("user", user{})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//err = tt.SetPrefix("user", "www")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//// range
-	//fmt.Printf("%v", tt.GetKeys("user"))
-
 
 }
-

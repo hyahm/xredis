@@ -4,20 +4,18 @@ import "time"
 
 type TypeList struct {
 	*GoRedis
-
 }
 
-
 func (gr *GoRedis) NewList() *TypeList {
-	return &TypeList{gr	}
+	return &TypeList{gr}
 }
 
 func (tl *TypeList) Del(keys ...string) (int64, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 	return tl.client.Del(keys...).Result()
 }
@@ -27,21 +25,20 @@ func (tl *TypeList) BLPop(timeout time.Duration, keys ...string) ([]string, erro
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := tl.Ping(); err != nil {
-		return  nil, err
+	if err := tl.Ping(); err != nil {
+		return nil, err
 	}
 
 	return tl.client.BLPop(timeout, keys...).Result()
 }
-
 
 func (tl *TypeList) BRPop(timeout time.Duration, keys ...string) ([]string, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
 	// 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
-	if  err := tl.Ping(); err != nil {
-		return  nil, err
+	if err := tl.Ping(); err != nil {
+		return nil, err
 	}
 
 	return tl.client.BRPop(timeout, keys...).Result()
@@ -52,22 +49,20 @@ func (tl *TypeList) BRPopLPush(source, destination string, timeout time.Duration
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  "", err
+	if err := tl.Ping(); err != nil {
+		return "", err
 	}
 
-	return tl.client.BRPopLPush(source, destination,timeout).Result()
+	return tl.client.BRPopLPush(source, destination, timeout).Result()
 }
-
-
 
 func (tl *TypeList) LIndex(key string, index int64) (string, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
 	// 通过索引获取列表中的元素
-	if  err := tl.Ping(); err != nil {
-		return  "", err
+	if err := tl.Ping(); err != nil {
+		return "", err
 	}
 
 	return tl.client.LIndex(key, index).Result()
@@ -78,8 +73,8 @@ func (tl *TypeList) LInsert(key, op string, pivot, value interface{}) (int64, er
 		panic("please conn first")
 	}
 	// 在列表的元素前或者后插入元素
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 
 	return tl.client.LInsert(key, op, pivot, value).Result()
@@ -90,8 +85,8 @@ func (tl *TypeList) LLen(key string) (int64, error) {
 		panic("please conn first")
 	}
 	// 获取列表长度
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 
 	return tl.client.LLen(key).Result()
@@ -102,8 +97,8 @@ func (tl *TypeList) LPop(key string) (string, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  "", err
+	if err := tl.Ping(); err != nil {
+		return "", err
 	}
 
 	return tl.client.LPop(key).Result()
@@ -114,23 +109,23 @@ func (tl *TypeList) LPush(key string, values ...interface{}) (int64, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 
 	return tl.client.LPush(key, values...).Result()
 }
 
-func (tl *TypeList) LPushX(key string, values ...interface{}) (int64, error) {
+func (tl *TypeList) LPushX(key string, value interface{}) (int64, error) {
 	// 将一个值插入到已存在的列表头部
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 
-	return tl.client.LPushX(key, values...).Result()
+	return tl.client.LPushX(key, value).Result()
 }
 
 func (tl *TypeList) LRange(key string, start, stop int64) ([]string, error) {
@@ -138,8 +133,8 @@ func (tl *TypeList) LRange(key string, start, stop int64) ([]string, error) {
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  nil, err
+	if err := tl.Ping(); err != nil {
+		return nil, err
 	}
 
 	return tl.client.LRange(key, start, stop).Result()
@@ -150,8 +145,8 @@ func (tl *TypeList) LRem(key string, count int64, value interface{}) (int64, err
 	if tl == nil {
 		panic("please conn first")
 	}
-	if  err := tl.Ping(); err != nil {
-		return  0, err
+	if err := tl.Ping(); err != nil {
+		return 0, err
 	}
 
 	return tl.client.LRem(key, count, value).Result()
@@ -193,7 +188,6 @@ func (tl *TypeList) RPop(key string) (string, error) {
 	return tl.client.RPop(key).Result()
 }
 
-
 func (tl *TypeList) RPopLPush(source, destination string) (string, error) {
 	// 移除列表的最后一个元素，并将该元素添加到另一个列表并返回
 	if tl == nil {
@@ -218,7 +212,7 @@ func (tl *TypeList) RPush(key string, values ...interface{}) (int64, error) {
 	return tl.client.RPush(key, values...).Result()
 }
 
-func (tl *TypeList) RPushX(key string, values ...interface{}) (int64, error) {
+func (tl *TypeList) RPushX(key string, value interface{}) (int64, error) {
 	// 为已存在的列表添加值
 	if tl == nil {
 		panic("please conn first")
@@ -227,5 +221,5 @@ func (tl *TypeList) RPushX(key string, values ...interface{}) (int64, error) {
 		return 0, err
 	}
 
-	return tl.client.RPushX(key, values...).Result()
+	return tl.client.RPushX(key, value).Result()
 }
