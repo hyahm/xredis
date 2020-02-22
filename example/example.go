@@ -19,10 +19,10 @@ type user struct {
 func main() {
 	conf := &redis.Options{
 		Network:            "",
-		Addr:               "23.224.69.130:6379",
+		Addr:               "127.0.0.1:6379",
 		Dialer:             nil,
 		OnConnect:          nil,
-		Password:           "dahaiten",
+		Password:           "",
 		DB:                 0,
 		MaxRetries:         0,
 		MinRetryBackoff:    0,
