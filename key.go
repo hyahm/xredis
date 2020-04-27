@@ -64,7 +64,7 @@ func (tk *GoRedis) Keys(pattern string) ([]string, error) {
 	return tk.client.Keys(pattern).Result()
 }
 
-func (tk *GoRedis) Move(key string, db int) (bool, error) {
+func (tk *GoRedis) Move(key string, db int64) (bool, error) {
 	if tk == nil {
 		panic("please conn first")
 	}

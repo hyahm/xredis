@@ -1,6 +1,8 @@
 package xredis
 
 import (
+	"fmt"
+
 	"github.com/go-redis/redis"
 )
 
@@ -14,6 +16,7 @@ func Conn(opt *redis.Options) (*GoRedis, error) {
 
 	client := redis.NewClient(opt)
 	if err := client.Ping().Err(); err != nil {
+		fmt.Println("1111111111")
 		return nil, err
 	}
 	gr := &GoRedis{

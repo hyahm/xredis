@@ -12,7 +12,7 @@ func (gr *GoRedis) NewZset() *TypeZset {
 	return &TypeZset{gr}
 }
 
-func (tz *TypeZset) ZAdd(key string, members ...*redis.Z) (int64, error) {
+func (tz *TypeZset) ZAdd(key string, members ...redis.Z) (int64, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -56,7 +56,7 @@ func (tz *TypeZset) ZIncrBy(key string, increment float64, member string) (float
 	return tz.client.ZIncrBy(key, increment, member).Result()
 }
 
-func (tz *TypeZset) ZInterStore(destination string, store *redis.ZStore) (int64, error) {
+func (tz *TypeZset) ZInterStore(destination string, store redis.ZStore, keys ...string) (int64, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -64,7 +64,7 @@ func (tz *TypeZset) ZInterStore(destination string, store *redis.ZStore) (int64,
 		return 0, err
 	}
 
-	return tz.client.ZInterStore(destination, store).Result()
+	return tz.client.ZInterStore(destination, store, keys...).Result()
 }
 
 func (tz *TypeZset) ZLexCount(key, min, max string) (int64, error) {
@@ -89,7 +89,7 @@ func (tz *TypeZset) ZRange(key string, start, stop int64) ([]string, error) {
 	return tz.client.ZRange(key, start, stop).Result()
 }
 
-func (tz *TypeZset) ZRangeByLex(key string, opt *redis.ZRangeBy) ([]string, error) {
+func (tz *TypeZset) ZRangeByLex(key string, opt redis.ZRangeBy) ([]string, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -100,7 +100,7 @@ func (tz *TypeZset) ZRangeByLex(key string, opt *redis.ZRangeBy) ([]string, erro
 	return tz.client.ZRangeByLex(key, opt).Result()
 }
 
-func (tz *TypeZset) ZRangeByScore(key string, opt *redis.ZRangeBy) ([]string, error) {
+func (tz *TypeZset) ZRangeByScore(key string, opt redis.ZRangeBy) ([]string, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -111,7 +111,7 @@ func (tz *TypeZset) ZRangeByScore(key string, opt *redis.ZRangeBy) ([]string, er
 	return tz.client.ZRangeByScore(key, opt).Result()
 }
 
-func (tz *TypeZset) ZRangeByScoreWithScores(key string, opt *redis.ZRangeBy) ([]redis.Z, error) {
+func (tz *TypeZset) ZRangeByScoreWithScores(key string, opt redis.ZRangeBy) ([]redis.Z, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -188,7 +188,7 @@ func (tz *TypeZset) ZRevRange(key string, start, stop int64) ([]string, error) {
 	return tz.client.ZRevRange(key, start, stop).Result()
 }
 
-func (tz *TypeZset) ZRevRangeByLex(key string, opt *redis.ZRangeBy) ([]string, error) {
+func (tz *TypeZset) ZRevRangeByLex(key string, opt redis.ZRangeBy) ([]string, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -199,7 +199,7 @@ func (tz *TypeZset) ZRevRangeByLex(key string, opt *redis.ZRangeBy) ([]string, e
 	return tz.client.ZRevRangeByLex(key, opt).Result()
 }
 
-func (tz *TypeZset) ZRevRangeByScore(key string, opt *redis.ZRangeBy) ([]string, error) {
+func (tz *TypeZset) ZRevRangeByScore(key string, opt redis.ZRangeBy) ([]string, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -221,7 +221,7 @@ func (tz *TypeZset) ZScore(key, member string) (float64, error) {
 	return tz.client.ZScore(key, member).Result()
 }
 
-func (tz *TypeZset) ZUnionStore(dest string, store *redis.ZStore) (int64, error) {
+func (tz *TypeZset) ZUnionStore(dest string, store redis.ZStore, keys ...string) (int64, error) {
 	if tz == nil {
 		panic("please conn first")
 	}
@@ -229,7 +229,7 @@ func (tz *TypeZset) ZUnionStore(dest string, store *redis.ZStore) (int64, error)
 		return 0, err
 	}
 
-	return tz.client.ZUnionStore(dest, store).Result()
+	return tz.client.ZUnionStore(dest, store, keys...).Result()
 }
 
 func (tz *TypeZset) ZScan(key string, cursor uint64, match string, count int64) ([]string, uint64, error) {
