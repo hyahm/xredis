@@ -19,7 +19,7 @@ type user struct {
 func main() {
 	conf := &redis.Options{
 		Network:            "",
-		Addr:               "127.0.0.1:6379",
+		Addr:               "192.168.50.43:6379",
 		Dialer:             nil,
 		OnConnect:          nil,
 		Password:           "",
