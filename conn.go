@@ -1,22 +1,18 @@
 package xredis
 
 import (
-	"fmt"
-
 	"github.com/go-redis/redis"
 )
 
 type GoRedis struct {
 	conf   *redis.Options
 	client *redis.Client
-	//Err error
 }
 
 func Conn(opt *redis.Options) (*GoRedis, error) {
 
 	client := redis.NewClient(opt)
 	if err := client.Ping().Err(); err != nil {
-		fmt.Println("1111111111")
 		return nil, err
 	}
 	gr := &GoRedis{
@@ -28,14 +24,7 @@ func Conn(opt *redis.Options) (*GoRedis, error) {
 }
 
 func (gr *GoRedis) Ping() error {
-	if err := gr.client.Ping().Err(); err != nil {
-		// 重连一次
-		gr.client = redis.NewClient(gr.conf)
-		if err := gr.client.Ping().Err(); err != nil {
-			return err
-		}
-	}
-	return nil
+	return gr.client.Ping().Err()
 }
 
 func (gr *GoRedis) Echo(message interface{}) (string, error) {

@@ -19,7 +19,7 @@ type user struct {
 func main() {
 	conf := &redis.Options{
 		Network:            "",
-		Addr:               "192.168.50.43:6379",
+		Addr:               "192.168.50.211:6379",
 		Dialer:             nil,
 		OnConnect:          nil,
 		Password:           "",
@@ -42,13 +42,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	s := client.NewStr()
-	if _, err := s.Set("aa", "bbb", time.Second*10); err != nil {
+	if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
 		panic(err)
 	}
 	fmt.Println("设置成功")
 
-	value, err := s.Get("aa")
+	value, err := client.NewStr().Get("aa")
 	if err != nil {
 		panic(err)
 	}
