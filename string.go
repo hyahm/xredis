@@ -1,58 +1,35 @@
 package xredis
 
+import (
+	"github.com/gomodule/redigo/redis"
+)
+
 type TypeString struct {
 	*GoRedis
+	redis.Conn
 }
 
-// func (gr *GoRedis) NewStr() *TypeString {
-// 	return &TypeString{gr}
-// }
+func (gr *GoRedis) NewStr() *TypeString {
+	conn := gr.client.Get()
+	return &TypeString{gr, conn}
+}
 
-// func (tsr *TypeString) Set(key string, value interface{}, expiration time.Duration) (string, error) {
-// 	if tsr == nil {
-// 		panic("please conn first")
-// 	}
-// 	// 设置指定 key 的值
-// 	if err := tsr.Ping(); err != nil {
-// 		return "", err
-// 	}
+func (tsr *TypeString) Set(key string, value interface{}) (string, error) {
+	return redis.String(tsr.Do("set", key, value))
+}
 
-// 	return tsr.client.Set(key, value, expiration).Result()
-// }
+func (tsr *TypeString) Get(key string) (string, error) {
+	return redis.String(tsr.Do("Get", key))
+}
 
-// func (tsr *TypeString) Get(key string) (string, error) {
-// 	if tsr == nil {
-// 		panic("please conn first")
-// 	}
-// 	// 获取指定 key 的值。
-// 	if err := tsr.Ping(); err != nil {
-// 		return "", err
-// 	}
+func (tsr *TypeString) GetRange(key string, start, end int64) (string, error) {
+	return redis.String(tsr.Do("GetRange", key, start, end))
+}
 
-// 	return tsr.client.Get(key).Result()
-// }
-
-// func (tsr *TypeString) GetRange(key string, start, end int64) (string, error) {
-// 	if tsr == nil {
-// 		panic("please conn first")
-// 	}
-// 	// 返回 key 中字符串值的子字符
-// 	if err := tsr.Ping(); err != nil {
-// 		return "", err
-// 	}
-// 	return tsr.client.GetRange(key, start, end).Result()
-// }
-
-// func (tsr *TypeString) GetSet(key string, value interface{}) (string, error) {
-// 	// 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。
-// 	if tsr == nil {
-// 		panic("please conn first")
-// 	}
-// 	if err := tsr.Ping(); err != nil {
-// 		return "", err
-// 	}
-// 	return tsr.client.GetSet(key, value).Result()
-// }
+func (tsr *TypeString) GetSet(key string, value interface{}) (string, error) {
+	// 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。
+	return redis.String(tsr.Do("GetSet", key, value))
+}
 
 // func (tsr *TypeString) GetBit(key string, offset int64) (int64, error) {
 // 	return tsr.client.GetBit(key, offset).Result()

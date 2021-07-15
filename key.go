@@ -4,40 +4,43 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-// func (tk *GoRedis) Del(keys ...string) (int64, error) {
-// 	return tk.client.Del(keys...).Result()
-// }
+func (gr *GoRedis) Del(keys ...interface{}) (int64, error) {
+	conn := gr.client.Get()
+	return redis.Int64(conn.Do("del", keys...))
+}
 
-// func (tk *GoRedis) Dump(key string) (string, error) {
-// 	return tk.client.Dump(key).Result()
-// }
+func (gr *GoRedis) Dump(key string) (string, error) {
+	conn := gr.client.Get()
+	return redis.String(conn.Do("dump", key))
+}
 
-// func (tk *GoRedis) RPushX(key string, value interface{}) (int64, error) {
-// 	// 为已存在的列表添加值
-// 	return tk.client.RPushX(key, value).Result()
-// }
+func (gr *GoRedis) RPushX(key string, value interface{}) (int64, error) {
+	// 为已存在的列表添加值
+	conn := gr.client.Get()
+	return redis.Int64(conn.Do("RPushX", key, value))
+}
 
-// func (tk *GoRedis) Expire(key string, expiration time.Duration) (bool, error) {
-// 	return tk.client.Expire(key, expiration).Result()
-// }
+func (gr *GoRedis) ExpireAt(key string, time int64) (bool, error) {
+	conn := gr.client.Get()
+	return redis.Bool(conn.Do("expireAt", key, time))
+}
 
-// func (tk *GoRedis) ExpireAt(key string, tm time.Time) (bool, error) {
-// 	return tk.client.ExpireAt(key, tm).Result()
-// }
+func (gr *GoRedis) Keys(pattern string) ([]string, error) {
+	conn := gr.client.Get()
+	return redis.Strings(conn.Do("keys", pattern))
+}
 
-// func (tk *GoRedis) Keys(pattern string) ([]string, error) {
-// 	return tk.client.Keys(pattern).Result()
-// }
+func (gr *GoRedis) Move(key string, db int64) (bool, error) {
+	conn := gr.client.Get()
+	return redis.Bool(conn.Do("move", db))
+}
 
-// func (tk *GoRedis) Move(key string, db int64) (bool, error) {
-// 	return tk.client.Move(key, db).Result()
-// }
+func (gr *GoRedis) Persist(key string) (bool, error) {
+	conn := gr.client.Get()
+	return redis.Bool(conn.Do("persist", key))
+}
 
-// func (tk *GoRedis) Persist(key string) (bool, error) {
-// 	return tk.client.Persist(key).Result()
-// }
-
-func (gr *GoRedis) SetTTL(key string, second int) error {
+func (gr *GoRedis) Expire(key string, second int) error {
 	conn := gr.client.Get()
 	_, err := redis.Int(conn.Do("EXPIRE", key, second))
 	return err
@@ -48,18 +51,22 @@ func (gr *GoRedis) GetTTL(key string) (int, error) {
 	return redis.Int(conn.Do("ttl", key))
 }
 
-// func (tk *GoRedis) RandomKey() (string, error) {
-// 	return tk.client.RandomKey().Result()
-// }
+func (gr *GoRedis) RandomKey() (string, error) {
+	conn := gr.client.Get()
+	return redis.String(conn.Do("rename"))
+}
 
-// func (tk *GoRedis) Rename(key, newkey string) (string, error) {
-// 	return tk.client.Rename(key, newkey).Result()
-// }
+func (gr *GoRedis) Rename(key, newkey string) (string, error) {
+	conn := gr.client.Get()
+	return redis.String(conn.Do("rename", key, newkey))
+}
 
-// func (tk *GoRedis) RenameNX(key, newkey string) (bool, error) {
-// 	return tk.client.RenameNX(key, newkey).Result()
-// }
+func (gr *GoRedis) RenameNX(key, newkey string) (bool, error) {
+	conn := gr.client.Get()
+	return redis.Bool(conn.Do("RenameNX", key, newkey))
+}
 
-// func (tk *GoRedis) Type(key string) (string, error) {
-// 	return tk.client.Type(key).Result()
-// }
+func (gr *GoRedis) Type(key string) (string, error) {
+	conn := gr.client.Get()
+	return redis.String(conn.Do("type", key))
+}
