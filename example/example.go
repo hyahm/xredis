@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-redis/redis"
 	"github.com/hyahm/xredis"
 )
 
@@ -17,40 +16,46 @@ type user struct {
 }
 
 func main() {
-	conf := &redis.Options{
-		Network:            "",
-		Addr:               "192.168.50.211:6379",
+	conf := xredis.Options{
+		Network:            "tcp",
+		Addr:               "23.225.165.34:6379",
 		Dialer:             nil,
-		OnConnect:          nil,
-		Password:           "",
-		DB:                 0,
+		Password:           "hugonodahaiten",
+		DB:                 5,
 		MaxRetries:         0,
 		MinRetryBackoff:    0,
 		MaxRetryBackoff:    0,
 		DialTimeout:        0,
-		ReadTimeout:        0,
+		ReadTimeout:        5 * time.Second,
 		WriteTimeout:       0,
 		PoolSize:           10,
 		MinIdleConns:       0,
-		MaxConnAge:         0,
 		PoolTimeout:        0,
 		IdleTimeout:        0,
 		IdleCheckFrequency: 0,
 		TLSConfig:          nil,
+		ConnectTimeout:     3 * time.Second,
 	}
-	client, err := xredis.Conn(conf)
+	rconn, err := xredis.Conn(conf)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
-	if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
-		panic(err)
-	}
-	fmt.Println("设置成功")
+	set := rconn.NewSet()
+	member := `{"filename": "dm_4bRFPN8S.json", "user": "maomi"}`
+	// ok, _ := set.SIsMember("u5_downloading", member)
+	set.SAdd("aaa", member)
+	err = rconn.SetTTL("aaa", 10)
+	t, _ := rconn.GetTTL("aaa")
+	fmt.Println(t)
+	// if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println("设置成功")
 
-	value, err := client.NewStr().Get("aa")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(value)
+	// value, err := client.NewStr().Get("aa")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println(value)
 
 }

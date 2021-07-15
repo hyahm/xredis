@@ -3,6 +3,6 @@ module github.com/hyahm/xredis
 go 1.13
 
 require (
-	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/onsi/ginkgo v1.14.0 // indirect
+	github.com/gomodule/redigo v1.8.5
+	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
