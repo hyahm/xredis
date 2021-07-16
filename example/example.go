@@ -41,12 +41,11 @@ func main() {
 		fmt.Println(err)
 	}
 	set := rconn.NewSet()
-	member := `{"filename": "dm_4bRFPN8S.json", "user": "maomi"}`
 	// ok, _ := set.SIsMember("u5_downloading", member)
-	set.SAdd("aaa", member)
-	err = rconn.SetTTL("aaa", 10)
-	t, _ := rconn.GetTTL("aaa")
-	fmt.Println(t)
+	ok, err := set.Exists("u5_download")
+	fmt.Println(ok)
+	fmt.Println(err)
+
 	// if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
 	// 	panic(err)
 	// }

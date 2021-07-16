@@ -40,6 +40,11 @@ func (gr *GoRedis) Persist(key string) (bool, error) {
 	return redis.Bool(conn.Do("persist", key))
 }
 
+func (gr *GoRedis) Exists(key string) (bool, error) {
+	conn := gr.client.Get()
+	return redis.Bool(conn.Do("EXISTS", key))
+}
+
 func (gr *GoRedis) Expire(key string, second int) error {
 	conn := gr.client.Get()
 	_, err := redis.Int(conn.Do("EXPIRE", key, second))
