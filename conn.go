@@ -35,14 +35,14 @@ type Options struct {
 
 	// Maximum number of retries before giving up.
 	// Default is to not retry failed commands.
-	MaxRetries int
-	// Minimum backoff between each retry.
-	// Default is 8 milliseconds; -1 disables backoff.
-	MinRetryBackoff time.Duration
-	// Maximum backoff between each retry.
-	// Default is 512 milliseconds; -1 disables backoff.
-	MaxRetryBackoff time.Duration
-	ConnectTimeout  time.Duration
+	// MaxRetries int
+	// // Minimum backoff between each retry.
+	// // Default is 8 milliseconds; -1 disables backoff.
+	// MinRetryBackoff time.Duration
+	// // Maximum backoff between each retry.
+	// // Default is 512 milliseconds; -1 disables backoff.
+	// MaxRetryBackoff time.Duration
+	ConnectTimeout time.Duration
 	// Dial timeout for establishing new connections.
 	// Default is 5 seconds.
 	DialTimeout time.Duration
@@ -77,25 +77,61 @@ type Options struct {
 	// if IdleTimeout is set.
 	IdleCheckFrequency time.Duration
 
-	// Enables read only queries on slave nodes.
-	readOnly bool
-
 	// TLS Config to use. When set TLS will be negotiated.
 	TLSConfig *tls.Config
+
+	MaxActive int
+
+	Wait bool
+
+	MaxConnLifetime time.Duration
 }
 
 func Conn(opt Options) (*GoRedis, error) {
-	pool := redis.NewPool(func() (redis.Conn, error) {
-		return redis.Dial("tcp",
-			opt.Addr, redis.DialPassword(opt.Password),
-			redis.DialDatabase(opt.DB),
-			redis.DialKeepAlive(opt.KeepAlive),
-			redis.DialReadTimeout(opt.ReadTimeout),
-			redis.DialTLSConfig(opt.TLSConfig),
-			redis.DialWriteTimeout(opt.WriteTimeout),
-			redis.DialConnectTimeout(opt.ConnectTimeout),
-		)
-	}, opt.PoolSize)
+	if opt.PoolSize == 0 {
+		opt.PoolSize = 4
+	}
+	if opt.Network == "" {
+		opt.Network = "tcp"
+	}
+	pool := &redis.Pool{
+		Dial: func() (redis.Conn, error) {
+			c, err := redis.Dial(opt.Network, opt.Addr)
+			if err != nil {
+				return nil, err
+			}
+			if _, err := c.Do("AUTH", opt.Password); err != nil {
+				c.Close()
+				return nil, err
+			}
+			if _, err := c.Do("SELECT", opt.DB); err != nil {
+				c.Close()
+				return nil, err
+			}
+			return c, nil
+
+		},
+		MaxIdle: opt.PoolSize,
+
+		MaxActive: opt.MaxActive,
+
+		IdleTimeout: opt.IdleTimeout,
+
+		Wait: opt.Wait,
+
+		MaxConnLifetime: opt.MaxConnLifetime,
+	}
+	// pool := redis.NewPool(func() (redis.Conn, error) {
+	// 	return redis.Dial("tcp",
+	// 		opt.Addr, redis.DialPassword(opt.Password),
+	// 		redis.DialDatabase(opt.DB),
+	// 		redis.DialKeepAlive(opt.KeepAlive),
+	// 		redis.DialReadTimeout(opt.ReadTimeout),
+	// 		redis.DialTLSConfig(opt.TLSConfig),
+	// 		redis.DialWriteTimeout(opt.WriteTimeout),
+	// 		redis.DialConnectTimeout(opt.ConnectTimeout),
+	// 	)
+	// }, opt.PoolSize)
 	gr := &GoRedis{client: pool}
 	return gr, gr.Ping()
 }

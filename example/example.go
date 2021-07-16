@@ -22,9 +22,6 @@ func main() {
 		Dialer:             nil,
 		Password:           "hugonodahaiten",
 		DB:                 5,
-		MaxRetries:         0,
-		MinRetryBackoff:    0,
-		MaxRetryBackoff:    0,
 		DialTimeout:        0,
 		ReadTimeout:        5 * time.Second,
 		WriteTimeout:       0,
@@ -44,6 +41,7 @@ func main() {
 	// ok, _ := set.SIsMember("u5_downloading", member)
 	ok, err := set.Exists("u5_download")
 	fmt.Println(ok)
+
 	fmt.Println(err)
 
 	// if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
