@@ -18,9 +18,9 @@ type user struct {
 func main() {
 	conf := xredis.Options{
 		Network:            "tcp",
-		Addr:               "23.225.165.34:6379",
+		Addr:               "192.168.50.250:6379",
 		Dialer:             nil,
-		Password:           "hugonodahaiten",
+		Password:           "",
 		DB:                 5,
 		DialTimeout:        0,
 		ReadTimeout:        5 * time.Second,

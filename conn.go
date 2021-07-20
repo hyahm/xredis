@@ -100,10 +100,13 @@ func Conn(opt Options) (*GoRedis, error) {
 			if err != nil {
 				return nil, err
 			}
-			if _, err := c.Do("AUTH", opt.Password); err != nil {
-				c.Close()
-				return nil, err
+			if opt.Password != "" {
+				if _, err := c.Do("AUTH", opt.Password); err != nil {
+					c.Close()
+					return nil, err
+				}
 			}
+
 			if _, err := c.Do("SELECT", opt.DB); err != nil {
 				c.Close()
 				return nil, err
