@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/hyahm/xredis"
@@ -40,8 +41,17 @@ func main() {
 	set := rconn.NewSet()
 	// ok, _ := set.SIsMember("u5_downloading", member)
 	ok, err := set.Exists("u5_download")
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(ok)
-
+	if !ok {
+		_, err := set.SAdd("u5_download", "bbbb")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	err = set.Expire("u5_download", 60*2)
 	fmt.Println(err)
 
 	// if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {

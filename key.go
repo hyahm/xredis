@@ -1,8 +1,6 @@
 package xredis
 
 import (
-	"time"
-
 	"github.com/gomodule/redigo/redis"
 )
 
@@ -13,6 +11,7 @@ func (gr *GoRedis) Del(keys ...interface{}) (int64, error) {
 
 func (gr *GoRedis) Dump(key string) (string, error) {
 	conn := gr.client.Get()
+
 	return redis.String(conn.Do("dump", key))
 }
 
@@ -22,7 +21,8 @@ func (gr *GoRedis) RPushX(key string, value interface{}) (int64, error) {
 	return redis.Int64(conn.Do("RPushX", key, value))
 }
 
-func (gr *GoRedis) ExpireAt(key string, expire time.Duration) (bool, error) {
+// 单位秒
+func (gr *GoRedis) ExpireAt(key string, expire int) (bool, error) {
 	conn := gr.client.Get()
 	return redis.Bool(conn.Do("expireAt", key, expire))
 }
@@ -47,7 +47,8 @@ func (gr *GoRedis) Exists(key string) (bool, error) {
 	return redis.Bool(conn.Do("EXISTS", key))
 }
 
-func (gr *GoRedis) Expire(key string, expire time.Duration) error {
+// 单位： 秒
+func (gr *GoRedis) Expire(key string, expire int) error {
 	conn := gr.client.Get()
 	_, err := redis.Int(conn.Do("EXPIRE", key, expire))
 	return err
