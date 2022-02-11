@@ -46,6 +46,19 @@ func main() {
 	if _, err := client.Str().Set("aa", "bbb", time.Second*10); err != nil {
 		panic(err)
 	}
+	// lset  list+set 有序集合, 新增特殊有序集合
+	ls := client.NewListSet()
+	//
+	ls.LPush("aaa", "bbb")
+	ls.LPush("aaa", "ccc")
+	ls.LPush("aaa", "ddd")
+	ls.LPush("aaa", "eee")
+	ls.LPush("aaa", "eee")
+	result, err := ls.Range("aaa", 0, 10)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result) //  [eee ddd ccc bbb]
 	fmt.Println("设置成功")
 
 }
