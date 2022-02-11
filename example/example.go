@@ -54,6 +54,19 @@ func main() {
 	err = set.Expire("u5_download", 60*2)
 	fmt.Println(err)
 
+	// lset  list+set 有序集合, 新增特殊有序集合
+	ls := rconn.NewListSet()
+	//
+	ls.LPush("aaa", "bbb")
+	ls.LPush("aaa", "ccc")
+	ls.LPush("aaa", "ddd")
+	ls.LPush("aaa", "eee")
+	ls.LPush("aaa", "eee")
+	result, err := ls.Range("aaa", 0, 10)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result) //  [eee ddd ccc bbb]
 	// if _, err := client.NewStr().Set("aa", "bbb", time.Second*10); err != nil {
 	// 	panic(err)
 	// }
