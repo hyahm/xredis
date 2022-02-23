@@ -61,10 +61,6 @@ func (ts *TypeSet) SRandMember(key string) (string, error) {
 	return redis.String(ts.Do("SRandMember", key))
 }
 
-func (ts *TypeSet) SRandMemberN(key string, count int64) ([]string, error) {
-	return redis.Strings(ts.Do("SRandMemberN", key, count))
-}
-
 func (ts *TypeSet) SRem(key string, members ...interface{}) (int64, error) {
 	args := []interface{}{key}
 	args = append(args, members...)
