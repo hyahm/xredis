@@ -11,39 +11,34 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-redis/redis/v7"
+	"log"
+
 	"github.com/hyahm/xredis"
-	"time"
 )
 
 func main() {
-	conf := &redis.Options{
+
+	conf := xredis.Options{
 		Network:            "",
-		Addr:               "127.0.0.1:6379",
+		Addr:               "172.28.147.151:6379",
 		Dialer:             nil,
-		OnConnect:          nil,
 		Password:           "",
 		DB:                 0,
-		MaxRetries:         0,
-		MinRetryBackoff:    0,
-		MaxRetryBackoff:    0,
 		DialTimeout:        0,
 		ReadTimeout:        0,
 		WriteTimeout:       0,
 		PoolSize:           0,
 		MinIdleConns:       0,
-		MaxConnAge:         0,
-		PoolTimeout:        0,
 		IdleTimeout:        0,
 		IdleCheckFrequency: 0,
 		TLSConfig:          nil,
 	}
-	client, err  := xredis.Conn(conf)
+	client, err := xredis.Conn(conf)
 	if err != nil {
 		panic(err)
 	}
 
-	if _, err := client.Str().Set("aa", "bbb", time.Second*10); err != nil {
+	if _, err := client.NewStr().Set("aa", "bbb"); err != nil {
 		panic(err)
 	}
 	// lset  list+set 有序集合, 新增特殊有序集合
@@ -62,5 +57,6 @@ func main() {
 	fmt.Println("设置成功")
 
 }
+
 ```
 
